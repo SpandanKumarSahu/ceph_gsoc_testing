@@ -1,0 +1,10 @@
+1. The ceph cluster is not linear because, the normalised weights of the OSDs are not independent of each other, i.e. the sum of all weights (normalised) of the OSDs, must be 1. If we change the weight of one OSD, we indirectly change the weight of all the other OSDs. That is why the system doesn't behave linearly. Had the normalised weights been independent, the system would have been linear, as shows the maths.
+
+TODO :
+1. Test Loic's algorithm.
+2. Run and log multiple tests, across varying weights, and find if it fits a distribution.
+3. Try and modify Loic's algorithm or modify the working of PID, to better it, i.e. develop a simulator for it.
+
+
+Comments :
+list comprehension at https://github.com/SpandanKumarSahu/ceph_gsoc_testing/blob/master/distribution_test.py#L10.
