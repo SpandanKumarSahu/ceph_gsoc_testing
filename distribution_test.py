@@ -4,9 +4,7 @@ def normalise( array ):
 	return [float(i)/sum(array) for i in array]
 
 def getWeights( checklist ):
-	weight_list = []
-	for i in checklist:
-		weight_list.append(weights[i])
+	weight_list = [weights[i] for i in checklist]
 	return weight_list
 
 def remove( checklist, i):
@@ -41,16 +39,12 @@ print "Enter the weight of the OSDs"
 for i in range(num_OSD):
 	temp = input()
 	weights.append(temp)
-norm_weights = normalise(weights)
-
-for i in range(num_OSD):
-	result_matrix[0][i] = norm_weights[i]
 
 checklist = []
 for i in range(num_OSD):
 	checklist.append(i)
 
-recfunc( 1, checklist, 1)
+recfunc( 0, checklist, 1)
 
 for i in range(1, num_OSD):
 	result_matrix[i] = [x + y for x, y in zip(result_matrix[i-1], result_matrix[i])]
