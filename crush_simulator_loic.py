@@ -19,8 +19,8 @@ def reweight_after_replica_write():
 	current_load_difference = [x - y for x, y in zip(normalise(current_load_distribution), norm_weights)]
 	max_value = max(current_load_difference)
 	min_value = min(current_load_difference)
-	current_weights[current_load_difference.index(max_value)] *= 1.01
 	current_weights[current_load_difference.index(max_value)] *= 0.99
+	current_weights[current_load_difference.index(min_value)] *= 1.01
 
 def reweight_after_object_write():
 	return
@@ -66,5 +66,5 @@ while (count_objects < 10000):
 		picks += 1
 	reweight_after_object_write()
 	count_objects += 1
-	print normalise(current_load_distribution)
+print normalise(current_load_distribution)
 

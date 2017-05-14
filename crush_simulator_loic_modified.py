@@ -7,6 +7,7 @@
 import os
 import bisect as bisect
 import random
+import math
 
 def normalise( array ):
 	return [float(i)/sum(array) for i in array]
@@ -16,10 +17,14 @@ def remove( checklist, i):
 	return checklist
 
 def reweight_after_replica_write():
-	return
+	return	
 
 def reweight_after_object_write():
-	return
+	current_load_difference = [x - y for x, y in zip(normalise(current_load_distribution), norm_weights)]
+	max_value = max(current_load_difference)
+	min_value = min(current_load_difference)
+	current_weights[current_load_difference.index(max_value)] *= math.pow(1-replica_count*0.01, replica_count)
+	current_weights[current_load_difference.index(min_value)] *= math.pow(1+replica_count*0.01, replica_count)
 
 def getWeights( checklist ):
 	weight_list = [current_weights[i] for i in checklist]
@@ -37,6 +42,7 @@ def pick( checklist, random_number):
 	temp_weights = normalise( getWeights(checklist) )
 	for i in range(len(temp_weights)-1):
 		temp_weights[i+1] += temp_weights[i]
+	temp_weights[len(temp_weights)-1] = 1.0000000000000 
 	index = bisect.bisect(temp_weights, random_number)
 	current_load_distribution[checklist[index]] += 1
 	del checklist[index]
