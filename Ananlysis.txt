@@ -17,6 +17,8 @@ Observations:
 Observations Regarding Loic's algorithm :
 1. It worked amazingly good for replica_count=1. Behaves approximately like a linear system, when conditional probability is applied correctly.
 2. For replica_count > 1, though the algorithm improved upon the anomaly, still it is far from perfection.
+3. The distribution still assumes approximately correct values if the weights of the OSDs are not very different.
+   For example, a distribution of [1 1 1 1 2] almost gave a perfect distribution, for small replica counts, but not a distribution of [1 1 1 1 4]. This goes on to show that the number of replica and the distribution of weights are the factors affecting the final distribution.
 3. Tried to modify the algorithm a bit, but no such marked improvements were observed.
 
 
